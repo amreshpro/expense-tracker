@@ -25,7 +25,7 @@ const useExpenseStore = create<State & Actions>((set) => ({
   },
   updateExpense: (amount: number) => {
     set((state) => ({
-      expense: state.balance !== 0 && state.balance>=amount ? state.expense + amount : state.expense,
+      expense: state.balance <= 0 ? state.expense : state.expense + amount,
     }));
   },
 }));
