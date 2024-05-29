@@ -3,6 +3,7 @@ import HistoryTag from "./HistoryTag";
 
 export default function History() {
   const { history } = useHistoryStore((state) => state);
+  console.log(history)
   return (
     <div className="flex flex-col w-full justify-center items-center">
       <h1 className="font-bold text-lg mt-2 p-2">History</h1>

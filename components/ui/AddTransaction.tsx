@@ -3,12 +3,13 @@ import { useState } from "react";
 import useThemeStore from "@/store/themeStore";
 import useExpenseStore from "@/store/expenseStore";
 import useHistoryStore from "@/store/historyStore";
+import { nanoid } from "nanoid";
 
 export default function AddTransaction() {
   const { isDarkMode } = useThemeStore();
 
   const [transactionValue, setTransactionValue] = useState({
-    id: Math.floor(Math.random() * 100000 + 1),
+    id: nanoid(5),
     title: "",
     amount: 0,
   });
@@ -17,26 +18,34 @@ export default function AddTransaction() {
     (state) => state
   );
 
-  const { addInHistory, removeInHistory, history } = useHistoryStore(
+  const { addInHistory,  history } = useHistoryStore(
     (state) => state
   );
-  console.log(history);
-  console.log(removeInHistory);
+
+
+
   const transactionHandler = () => {
     if (transactionValue.amount && transactionValue.title) {
-      // transactionValue.id = transactionValue.amount+transactionValue.title+new Date()
+      setTransactionValue({
+        ...transactionValue,
+        id: nanoid(5)+new Date().getMilliseconds(),
+      });
       if (+transactionValue.amount > 0) {
         increaseBalance(+transactionValue.amount);
         updateIncome(+transactionValue.amount);
         addInHistory(transactionValue);
+      
       } else {
+        setTransactionValue({
+          ...transactionValue,
+          id: nanoid(),
+        });
         updateExpense(Math.abs(transactionValue.amount));
         addInHistory(transactionValue);
+      
 
-        // removeInHistory(transactionValue.id);
       }
     } else {
-      // throw new Error("All fields are required!")
       alert("All fields are required.");
     }
   };
@@ -66,7 +75,7 @@ export default function AddTransaction() {
 
       <div className="item-2 flex flex-col gap-1">
         <label htmlFor="pay">
-          Amount (Negative -Expense, Positive -Income)
+          Amount (Negative-Expense,Positive-Income)
         </label>
         <input
           id="pay"
