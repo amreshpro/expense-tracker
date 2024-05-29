@@ -6,7 +6,7 @@ import IncomeExpense from "./ui/IncomeExpense";
 
 export default function ExpenseApp() {
   return (
-    <div className=" mt-4 flex flex-col  justify-center items-center gap-8 ">
+    <div className=" my-4 h-full flex flex-col  justify-center items-center gap-8 ">
      <CurrentBalance/>
      <div className="flex flex-wrap justify-evenly gap-4">
      <IncomeExpense/>
