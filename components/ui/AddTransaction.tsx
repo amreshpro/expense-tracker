@@ -2,26 +2,36 @@
 import { useState } from "react";
 import useThemeStore from "@/store/themeStore";
 import useExpenseStore from "@/store/expenseStore";
+import useHistoryStore from "@/store/historyStore";
 
 export default function AddTransaction() {
   const { isDarkMode } = useThemeStore();
 
   const [transactionValue, setTransactionValue] = useState({
+    id: Math.floor(Math.random() * 100000 + 1),
     title: "",
     amount: 0,
   });
 
-  const { updateExpense, increaseBalance, decreaseBalance, updateIncome } =
-    useExpenseStore((state) => state);
+  const { updateExpense, increaseBalance, updateIncome } = useExpenseStore(
+    (state) => state
+  );
 
+  const { addInHistory, removeInHistory, history } = useHistoryStore(
+    (state) => state
+  );
+  console.log(history);
+  console.log(removeInHistory);
   const transactionHandler = () => {
     if (transactionValue.amount && transactionValue.title) {
+      // transactionValue.id = transactionValue.amount+transactionValue.title+new Date()
       if (+transactionValue.amount > 0) {
         increaseBalance(+transactionValue.amount);
         updateIncome(+transactionValue.amount);
+        addInHistory(transactionValue);
       } else {
-        decreaseBalance(Math.abs(transactionValue.amount));
         updateExpense(Math.abs(transactionValue.amount));
+        // removeInHistory(transactionValue.id);
       }
     } else {
       // throw new Error("All fields are required!")
