@@ -6,9 +6,7 @@ export default function History() {
     <div className="flex flex-col gap-4 items-center w-full">
       <HistoryTag title="Cash" amount={560} category="income"/>
       <HistoryTag title="Cash" amount={560} category="expense"/>
-      <HistoryTag title="Cash" amount={560} category="income"/>
-      <HistoryTag title="Cash" amount={560} category="income"/>
-      <HistoryTag title="Cash" amount={560} category="expense"/>
+
         
             </div>
   </div>
