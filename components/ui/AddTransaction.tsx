@@ -31,6 +31,8 @@ export default function AddTransaction() {
         addInHistory(transactionValue);
       } else {
         updateExpense(Math.abs(transactionValue.amount));
+        addInHistory(transactionValue);
+
         // removeInHistory(transactionValue.id);
       }
     } else {
